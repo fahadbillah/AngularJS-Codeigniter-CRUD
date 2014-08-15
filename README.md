@@ -13,3 +13,10 @@ TODO:
 
 **/
 
+# Getting started:
+
+Clone this repo to your xampp/htdocs or wamp/www rename the folder if you want.
+
+Create a database in your phpmyadmin, name it 'ngci' and then import the ngci.sql
+
+now you can reach the app here 'localhost/yourappname'
