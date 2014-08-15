@@ -1,0 +1,18 @@
+<ul class="menu">
+	<li class=" {{menu.active}} " ng-repeat="menu in nav">
+		<a href="{{menu.href}}"> {{menu.label}} </a>
+	</li>
+</ul>
+
+<h1>Home</h1>
+
+<a href="#/newpost">Create New Post</a>
+
+<div ng-repeat="post in allPost">
+	<h3><a href="#/post/{{post.id_posts}}">{{post.title}}</a></h3>
+	<p> {{post.details}} </p>
+	<br>
+	<span>Author: {{post.username}}</span> 
+	<br>
+	<span>Date Published: {{post.date_created}}</span> 
+</div>

@@ -1,0 +1,37 @@
+<ul class="menu">
+	<li class=" {{menu.active}} " ng-repeat="menu in nav">
+		<a href="{{menu.href}}"> {{menu.label}} </a>
+	</li>
+</ul>
+
+<h1>Post</h1>
+
+<h3> {{post.title}} </h3>
+<p> {{post.details}} </p>
+<br>
+<span> Author: {{post.username}} </span>
+<br>
+<span> Date Published: {{post.date_created}} </span>
+<br>
+<span> Total Liked: {{likes}} </span>
+<span> Total Favorite : {{favorites}} </span>
+
+<hr>
+<h1>Comments</h1>
+<button ng-click="likeFavoriteSubmit('l')" ng-hide="showLike">Like</button>
+<button ng-click="likeFavoriteWithdraw()" ng-show="showLike">Unlike</button>
+<button ng-click="likeFavoriteSubmit('f')" ng-hide="showFavorite">Favorite</button>
+<button ng-click="likeFavoriteWithdraw()" ng-show="showFavorite">Unfavorite</button>
+<br>
+Comment: <textarea ng-model="comment"></textarea>
+<br>
+<button ng-click="commentSubmit()">Submit Comment</button>
+
+<hr>
+<div> {{error}} </div>
+<div ng-repeat="cmnt in comments">
+	<span>Username: {{cmnt.username}} </span>
+	<span>Commented On: {{cmnt.date_created}} </span>
+	<br>
+	<p> {{cmnt.comment}} </p>
+</div>

@@ -1,0 +1,12 @@
+<ul class="menu">
+	<li class=" {{menu.active}} " ng-repeat="menu in nav">
+		<a href="{{menu.href}}"> {{menu.label}} </a>
+	</li>
+</ul>
+<h1>Create new post</h1>
+Title: <input ng-model="title">
+<br>
+Details: <textarea ng-model="details">
+</textarea>
+<br>
+<input type="button" ng-click="submitPost()" value="Submit">

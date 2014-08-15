@@ -1,0 +1,16 @@
+<ul class="menu">
+	<li class=" {{menu.active}} " ng-repeat="menu in nav">
+		<a href="{{menu.href}}"> {{menu.label}} </a>
+	</li>
+</ul>
+
+<p>This is the partial for view 1.</p>
+
+<form action="" method="get" accept-charset="utf-8">
+	<!-- <input ng-model="csrf_cookie_name" name="csrf_cookie_name" value="{{csrf_cookie_name}}" hidden> -->
+	<input type="text" ng-model="username">
+	<input type="text" ng-model="email">
+	<input type="password" ng-model="password">
+	<input type="password" ng-model="repassword">
+	<input type="submit" ng-click="signup()">
+</form>
