@@ -3,6 +3,8 @@
 		<a href="{{menu.href}}"> {{menu.label}} </a>
 	</li>
 </ul>
+<!-- <div menu> </div> -->
+
 
 <h1>Post</h1>
 
@@ -19,9 +21,9 @@
 <hr>
 <h1>Comments</h1>
 <button ng-click="likeFavoriteSubmit('l')" ng-hide="showLike">Like</button>
-<button ng-click="likeFavoriteWithdraw()" ng-show="showLike">Unlike</button>
+<button ng-click="likeFavoriteWithdraw('l')" ng-show="showLike">Unlike</button>
 <button ng-click="likeFavoriteSubmit('f')" ng-hide="showFavorite">Favorite</button>
-<button ng-click="likeFavoriteWithdraw()" ng-show="showFavorite">Unfavorite</button>
+<button ng-click="likeFavoriteWithdraw('f')" ng-show="showFavorite">Unfavorite</button>
 <br>
 Comment: <textarea ng-model="comment"></textarea>
 <br>

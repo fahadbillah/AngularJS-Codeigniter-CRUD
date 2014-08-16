@@ -5,10 +5,10 @@
 angular.module('myApp.controllers', [])
 .controller('RegistrationCtrl', ['$scope','$http','$location','headerFooterData', function($scope,$http,$location,headerFooterData) {
 
-	headerFooterData.getHeaderFooterDataLogin().then(function(data) {
-		console.log(data);
+	headerFooterData.getHeaderFooterData().then(function(data) {
+		// console.log(data);
 		if(data.success === true){
-			$location.path(data.url).replace();
+			$location.path('home').replace();
 		}else{
 			$scope.nav = data.menu;
 		}
@@ -17,18 +17,39 @@ angular.module('myApp.controllers', [])
 	var loadCSRFToken = function() {
 		$http.get('/ngci/app/api/registration')
 		.success(function(data, status, headers, config) {
-			console.log(data);
+			// console.log(data);
 			$scope.csrf_cookie_name = data.csrf_cookie_name;
 		})
 		.error(function(data, status, headers, config) {
 			alert('api failure');
 		});
 	};
-	// loadCSRFToken();
+	// loadCSRFToken();checkUsername
+
+	$scope.checkUsername = function() {
+		if($scope.username == ''){
+			$scope.usernameCheck = '';
+			return false;
+		}
+		$http.post('/ngci/app/api/registration/check_username',{'username': $scope.username})
+		.success(function(data, status, headers, config) {
+			$scope.usernameCheck = data.message;
+		})
+	}
+
+	$scope.checkEmail = function() {
+		if($scope.email == ''){
+			$scope.emailCheck = '';
+			return false;
+		}
+		$http.post('/ngci/app/api/registration/check_email',{'email': $scope.email})
+		.success(function(data, status, headers, config) {
+			$scope.emailCheck = data.message;
+		})
+	}
 
 
 	$scope.signup = function() {
-
 		if($scope.password !== $scope.repassword)
 			return false;
 
@@ -41,11 +62,11 @@ angular.module('myApp.controllers', [])
 			'repassword' : $scope.repassword
 		};
 
-		console.log(data);
+		// console.log(data);
 
 		$http.post('/ngci/app/api/registration/signup',data)
 		.success(function(data, status, headers, config) {
-			console.log(data);
+			// console.log(data);
 			alert(data.message);
 			if (data.success == true) {
 				$location.path(data.url).replace();
@@ -58,10 +79,10 @@ angular.module('myApp.controllers', [])
 }])
 .controller('LoginCtrl', ['$scope','$http','$location','headerFooterData', function($scope,$http,$location,headerFooterData) {
 
-	headerFooterData.getHeaderFooterDataLogin().then(function(data) {
-		console.log(data);
+	headerFooterData.getHeaderFooterData().then(function(data) {
+		// console.log(data);
 		if(data.success === true){
-			$location.path(data.url).replace();
+			$location.path('home').replace();
 		}else{
 			$scope.nav = data.menu;
 		}
@@ -72,11 +93,11 @@ angular.module('myApp.controllers', [])
 		var login = {
 			'username': $scope.username,
 			'password': $scope.password
-		}
+		};
 
 		$http.post('/ngci/app/api/login/login_check',login)
 		.success(function(data, status, headers, config) {
-			console.log(data);
+			// console.log(data);
 			// alert(data.message);
 			if (data.success == true) {
 				$location.path(data.url).replace();
@@ -91,12 +112,12 @@ angular.module('myApp.controllers', [])
 
 	$scope.limit = 5;
 	$scope.offset = 0;
-	headerFooterData.getHeaderFooterData(1).then(function(data) {
-		console.log(data);
+	headerFooterData.getHeaderFooterData().then(function(data) {
+		// console.log(data);
 		if(data.success === false)
 			$location.path('login').replace();
 
-		$scope.nav = data;
+		$scope.nav = data.menu;
 		getAllPost($scope.limit,$scope.offset);
 	});
 	// return false;
@@ -107,7 +128,7 @@ angular.module('myApp.controllers', [])
 	var getAllPost = function(limit,offset) {
 		$http.get('/ngci/app/api/users/get_all_home_post/'+limit+'/'+offset)
 		.success(function(data, status, headers, config) {
-			console.log(data);
+			// console.log(data);
 			// alert(data.message);
 			$scope.allPost = data;
 		})
@@ -120,12 +141,12 @@ angular.module('myApp.controllers', [])
 }])
 .controller('NewPostCtrl', ['$scope','$http','$location','headerFooterData', function($scope,$http,$location,headerFooterData) {
 
-	headerFooterData.getHeaderFooterData(1).then(function(data) {
-		console.log(data);
+	headerFooterData.getHeaderFooterData().then(function(data) {
+		// console.log(data);
 		if(data.success === false)
 			$location.path('login').replace();
 
-		$scope.nav = data;
+		$scope.nav = data.menu;
 	});
 
 	$scope.submitPost = function() {
@@ -155,18 +176,18 @@ angular.module('myApp.controllers', [])
 }])
 .controller('ProfileCtrl', ['$scope','$http','$location','headerFooterData', function($scope,$http,$location,headerFooterData) {
 
-	headerFooterData.getHeaderFooterData(1).then(function(data) {
-		console.log(data);
+	headerFooterData.getHeaderFooterData().then(function(data) {
+		// console.log(data);
 		if(data.success === false)
 			$location.path('login').replace();
 
-		$scope.nav = data;
+		$scope.nav = data.menu;
 	});
 
 
 	$http.get('/ngci/app/api/users/user_details')
 	.success(function(data, status, headers, config) {
-		console.log(data);
+		// console.log(data);
 		if (data.success === true) {
 			$scope.userdata = data.userdata;
 		}else{
@@ -179,12 +200,12 @@ angular.module('myApp.controllers', [])
 }])
 .controller('PostCtrl', ['$scope','$http','$location','$routeParams','headerFooterData', function($scope,$http,$location,$routeParams,headerFooterData) {
 
-	headerFooterData.getHeaderFooterData(1).then(function(data) {
-		console.log(data);
+	headerFooterData.getHeaderFooterData().then(function(data) {
+		// console.log(data);
 		if(data.success === false)
 			$location.path('login').replace();
 
-		$scope.nav = data;
+		$scope.nav = data.menu;
 		getPostDetails($routeParams["id_posts"]);
 		getAllComments($routeParams["id_posts"]);
 	});
@@ -198,7 +219,7 @@ angular.module('myApp.controllers', [])
 	var getPostDetails = function(id_posts) {
 		$http.get('/ngci/app/api/users/post_details/'+id_posts)
 		.success(function(data, status, headers, config) {
-			console.log(data);
+			// console.log(data);
 			if (data.success === true) {
 				$scope.post = data.post;
 
@@ -206,8 +227,8 @@ angular.module('myApp.controllers', [])
 				$scope.showFavorite = data.post.added_to_favorite;
 				$scope.likes = data.likes_favorites.likes;
 				$scope.favorites = data.likes_favorites.favorites;
-				console.log($scope.showLike);
-				console.log($scope.showFavorite);
+				// console.log($scope.showLike);
+				// console.log($scope.showFavorite);
 			}else{
 				alert(data.message);
 			}
@@ -220,7 +241,7 @@ angular.module('myApp.controllers', [])
 	var getAllComments = function(id_posts) {
 		$http.get('/ngci/app/api/users/all_comments/'+id_posts)
 		.success(function(data, status, headers, config) {
-			console.log(data);
+			// console.log(data);
 			$scope.error = '';
 			if (data.success === true) {
 				$scope.comments = data.comments;
@@ -245,7 +266,7 @@ angular.module('myApp.controllers', [])
 		}
 		$http.post('/ngci/app/api/users/submit_comment/',comment)
 		.success(function(data, status, headers, config) {
-			console.log(data);
+			// console.log(data);
 			$scope.comment = '';
 			getAllComments($routeParams["id_posts"]);
 			alert(data.message);
@@ -262,7 +283,7 @@ angular.module('myApp.controllers', [])
 
 		$http.get('/ngci/app/api/users/submit_like_favorite/'+id_posts+'/'+type)
 		.success(function(data, status, headers, config) {
-			console.log(data);
+			// console.log(data);
 			if (data.success) {
 				$scope.likes = data.likes_favorites.likes;
 				$scope.favorites = data.likes_favorites.favorites;
@@ -279,27 +300,48 @@ angular.module('myApp.controllers', [])
 		});
 	}
 
+	$scope.likeFavoriteWithdraw = function(type) {
+
+		$http.get('/ngci/app/api/users/remove_likes_favorites/'+$routeParams["id_posts"]+'/'+type)
+		.success(function(data, status, headers, config) {
+			console.log(data);
+			if (data.success === true){
+				if(type == 'l')
+					$scope.showLike = false;
+				if(type == 'f') 
+					$scope.showFavorite = false;
+			}
+
+			alert(data.message);
+		})
+		.error(function(data, status, headers, config) {
+			alert('api failure');
+		});
+	}
+
 }])
 .controller('LogoutCtrl', ['$scope','$http','$location','headerFooterData', function($scope,$http,$location,headerFooterData) {
 
-	headerFooterData.getHeaderFooterDataLogin().then(function(data) {
-		console.log(data);
-		if(data.success === true){
-			$location.path(data.url).replace();
-		}else{
-			$scope.nav = data.menu;
-		}
-	});
-
 	$http.get('/ngci/app/api/users/logout')
 	.success(function(data, status, headers, config) {
-		console.log(data);
-			// alert(data.message);
-			if (data.success == true) {
-				$location.path(data.url).replace();
-			};
-		})
+		headerFooterData.getHeaderFooterData().then(function(data) {
+			$scope.nav = data.menu;
+		});
+	})
 	.error(function(data, status, headers, config) {
 		alert('api failure');
 	});
 }]);
+// .controller('MenuCtrl', ['$scope','$location','headerFooterData', function($scope,$location,headerFooterData) {
+
+	// headerFooterData.getHeaderFooterData().then(function(data) {
+	// 	console.log(data);
+	// 	if(data.success === true){
+	// 		$location.path(data.url).replace();
+	// 	}else{
+	// 		$scope.nav = data.menu;
+	// 	}
+	// });
+
+
+// }]);

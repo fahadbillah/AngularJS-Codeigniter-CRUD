@@ -1,11 +1,15 @@
- <ul class="menu">
- 	<li class=" {{menu.active}} " ng-repeat="menu in nav">
- 		<a href="{{menu.href}}"> {{menu.label}} </a>
- 	</li>
- </ul>
+<ul class="menu">
+	<li class=" {{menu.active}} " ng-repeat="menu in nav">
+		<a href="{{menu.href}}"> {{menu.label}} </a>
+	</li>
+</ul>
+<!-- <div menu> </div> -->
 
- <form method="post" accept-charset="utf-8">
- 	<input type="text" ng-model="username">
- 	<input type="password" ng-model="password">
- 	<input type="submit" ng-click="login()">
- </form>
+
+<form method="post" accept-charset="utf-8">
+	<label>Username: </label><input type="text" ng-model="username">
+	<br>
+	<label>Password: </label><input type="password" ng-model="password">
+	<br>
+	<input type="submit" ng-click="login()">
+</form>

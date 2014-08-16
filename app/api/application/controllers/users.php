@@ -19,7 +19,7 @@ class Users extends CI_Controller {
 		$this->jsonify(array('session_id' => $this->session->userdata('session_id')));
 	}
 
-	public function get_header_footer_data($type = 0)
+	public function get_header_footer_data($type = 1)
 	{
 		$menu = array();
 		switch ($type) {
@@ -223,6 +223,28 @@ class Users extends CI_Controller {
 		$likes_favorites = $this->User->get_post_likes_favorites($id_posts);		
 		var_dump($likes_favorites);
 	}
+
+	public function remove_likes_favorites($id_posts,$type)
+	{
+		$data = array('id_posts' => $id_posts, 'id_users' => $this->session->userdata('id_users'), 'type' => $type);
+		$delete = $this->User->remove_likes_favorites($data);		
+		if ($delete === true) {
+			$this->jsonify(array('success' => true, 'message' => 'Post unliked'));
+		}else{
+			$this->jsonify(array('success' => false, 'message' => 'Failed unliking'));
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 	public function logout()
 	{

@@ -1,4 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+error_reporting(-1);
 
 class Registration extends CI_Controller {
 
@@ -9,11 +10,7 @@ class Registration extends CI_Controller {
 
 	public function index()
 	{
-		$data = array(
-			'csrf_cookie_name' => $this->input->cookie('csrf_cookie_name')
-			);
-
-		print_r(json_encode($data));
+		echo "dogeee";
 	}
 
 	public function signup()
@@ -24,7 +21,7 @@ class Registration extends CI_Controller {
 				'success' => false, 
 				'message' => 'Password mismatch!'
 				));
-			return false;
+			exit();
 		}
 
 		$this->load->helper('misc_helper');
@@ -36,28 +33,70 @@ class Registration extends CI_Controller {
 			'activation_code' => token(),
 			'password' => do_hash($data['password'])
 			);
-		// var_dump($user);
+
 		$this->load->model('User');
-		if($this->User->add_user($user) == true){
+		if($this->User->add_user($user) === true){
 			$this->jsonify(array(
 				'success' => true, 
 				'message' => 'User created successfully!',
 				'url' => 'login'
 				));
-			return 0;
+			exit();
 		}
 		else{
 			$this->jsonify(array(
 				'success' => false, 
 				'message' => 'User create failed!'
 				));
+			exit();
 		}
 	}
 
-	public function test()
+	public function check_username()
 	{
-		// var_dump($this->load->library('Custom_security'));
-		// var_dump($this->input->cookie('csrf_cookie_name'));
+		$data = (array)json_decode(file_get_contents("php://input"));
+		$this->username_available($data['username']);
+	}
+
+	public function check_email()
+	{
+		$data = (array)json_decode(file_get_contents("php://input"));
+		$this->email_available($data['email']);
+	}
+
+	public function username_available($username)
+	{
+		$this->load->model('User');
+
+		if ($this->User->check_email_username_available('username', $username) >0) {
+			$this->jsonify(array(
+				'success' => true, 
+				'message' => 'Username is not available!'
+				));
+		}else{
+			$this->jsonify(array(
+				'success' => false, 
+				'message' => 'Username is available!'
+				));
+		}
+	}
+
+	public function email_available($email)
+	{
+		$this->load->model('User');
+
+		if ($this->User->check_email_username_available('email',$email) >0) {
+			$this->jsonify(array(
+				'success' => true, 
+				'message' => 'Email is not available!'
+				));
+		}else{
+			$this->jsonify(array(
+				'success' => false, 
+				'message' => 'Email is available!'
+				));
+		}
+
 	}
 
 	public function jsonify($data)

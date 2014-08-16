@@ -124,6 +124,25 @@ class User extends CI_Model {
 		return ($this->db->count_all_results('likes_favorites') > 0) ? true : false;
 	}
 
+	public function remove_likes_favorites($data)
+	{
+		$this->db->where('id_posts', $data['id_posts']);
+		$this->db->where('id_users', $data['id_users']);
+		$this->db->where('type', $data['type']);
+		return $this->db->delete('likes_favorites');
+	}
+
+	public function check_email_username_available($type,$data)
+	{
+		if ($type == 'email') {
+			$this->db->where('email', $data);
+			return $this->db->count_all_results('users');
+		}else{
+			$this->db->where('username', $data);
+			return $this->db->count_all_results('users');
+		}
+	}
+
 }
 
 /* End of file user.php */
