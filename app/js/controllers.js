@@ -15,7 +15,7 @@ angular.module('myApp.controllers', [])
 	});
 
 	var loadCSRFToken = function() {
-		$http.get('/ngci/app/api/registration')
+		$http.get('api/registration')
 		.success(function(data, status, headers, config) {
 			// console.log(data);
 			$scope.csrf_cookie_name = data.csrf_cookie_name;
@@ -31,7 +31,7 @@ angular.module('myApp.controllers', [])
 			$scope.usernameCheck = '';
 			return false;
 		}
-		$http.post('/ngci/app/api/registration/check_username',{'username': $scope.username})
+		$http.post('api/registration/check_username',{'username': $scope.username})
 		.success(function(data, status, headers, config) {
 			$scope.usernameCheck = data.message;
 		})
@@ -42,7 +42,7 @@ angular.module('myApp.controllers', [])
 			$scope.emailCheck = '';
 			return false;
 		}
-		$http.post('/ngci/app/api/registration/check_email',{'email': $scope.email})
+		$http.post('api/registration/check_email',{'email': $scope.email})
 		.success(function(data, status, headers, config) {
 			$scope.emailCheck = data.message;
 		})
@@ -64,7 +64,7 @@ angular.module('myApp.controllers', [])
 
 		// console.log(data);
 
-		$http.post('/ngci/app/api/registration/signup',data)
+		$http.post('api/registration/signup',data)
 		.success(function(data, status, headers, config) {
 			// console.log(data);
 			alert(data.message);
@@ -95,7 +95,7 @@ angular.module('myApp.controllers', [])
 			'password': $scope.password
 		};
 
-		$http.post('/ngci/app/api/login/login_check',login)
+		$http.post('api/login/login_check',login)
 		.success(function(data, status, headers, config) {
 			// console.log(data);
 			// alert(data.message);
@@ -126,7 +126,7 @@ angular.module('myApp.controllers', [])
 	// $scope.allPost;
 
 	var getAllPost = function(limit,offset) {
-		$http.get('/ngci/app/api/users/get_all_home_post/'+limit+'/'+offset)
+		$http.get('api/users/get_all_home_post/'+limit+'/'+offset)
 		.success(function(data, status, headers, config) {
 			// console.log(data);
 			// alert(data.message);
@@ -162,7 +162,7 @@ angular.module('myApp.controllers', [])
 			details: $scope.details
 		}
 
-		$http.post('/ngci/app/api/users/submit_new_post',data)
+		$http.post('api/users/submit_new_post',data)
 		.success(function(data, status, headers, config) {
 			console.log(data);
 			alert(data.message);
@@ -185,7 +185,7 @@ angular.module('myApp.controllers', [])
 	});
 
 
-	$http.get('/ngci/app/api/users/user_details')
+	$http.get('api/users/user_details')
 	.success(function(data, status, headers, config) {
 		// console.log(data);
 		if (data.success === true) {
@@ -217,7 +217,7 @@ angular.module('myApp.controllers', [])
 	// console.log($routeParams["id_posts"]);
 	// return false;
 	var getPostDetails = function(id_posts) {
-		$http.get('/ngci/app/api/users/post_details/'+id_posts)
+		$http.get('api/users/post_details/'+id_posts)
 		.success(function(data, status, headers, config) {
 			// console.log(data);
 			if (data.success === true) {
@@ -239,7 +239,7 @@ angular.module('myApp.controllers', [])
 	};
 
 	var getAllComments = function(id_posts) {
-		$http.get('/ngci/app/api/users/all_comments/'+id_posts)
+		$http.get('api/users/all_comments/'+id_posts)
 		.success(function(data, status, headers, config) {
 			// console.log(data);
 			$scope.error = '';
@@ -264,7 +264,7 @@ angular.module('myApp.controllers', [])
 			'id_posts' : $routeParams["id_posts"],
 			'comment' : $scope.comment
 		}
-		$http.post('/ngci/app/api/users/submit_comment/',comment)
+		$http.post('api/users/submit_comment/',comment)
 		.success(function(data, status, headers, config) {
 			// console.log(data);
 			$scope.comment = '';
@@ -281,7 +281,7 @@ angular.module('myApp.controllers', [])
 			return false;
 		var id_posts = $routeParams["id_posts"];
 
-		$http.get('/ngci/app/api/users/submit_like_favorite/'+id_posts+'/'+type)
+		$http.get('api/users/submit_like_favorite/'+id_posts+'/'+type)
 		.success(function(data, status, headers, config) {
 			// console.log(data);
 			if (data.success) {
@@ -302,7 +302,7 @@ angular.module('myApp.controllers', [])
 
 	$scope.likeFavoriteWithdraw = function(type) {
 
-		$http.get('/ngci/app/api/users/remove_likes_favorites/'+$routeParams["id_posts"]+'/'+type)
+		$http.get('api/users/remove_likes_favorites/'+$routeParams["id_posts"]+'/'+type)
 		.success(function(data, status, headers, config) {
 			console.log(data);
 			if (data.success === true){
@@ -322,7 +322,7 @@ angular.module('myApp.controllers', [])
 }])
 .controller('LogoutCtrl', ['$scope','$http','$location','headerFooterData', function($scope,$http,$location,headerFooterData) {
 
-	$http.get('/ngci/app/api/users/logout')
+	$http.get('api/users/logout')
 	.success(function(data, status, headers, config) {
 		headerFooterData.getHeaderFooterData().then(function(data) {
 			$scope.nav = data.menu;
