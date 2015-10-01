@@ -29,3 +29,5 @@ Now you can reach the app here 'localhost/yourappname'
 Database issue:
 
 If you face problem importing ngci.sql open the file in any text editor. Remove this "ON UPDATE CURRENT_TIMESTAMP" line (there are 2). Then save the file and import again. Or you can update your mysql version.
+
+*user password 123*
