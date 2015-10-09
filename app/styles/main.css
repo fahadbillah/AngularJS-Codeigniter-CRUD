@@ -59,6 +59,11 @@ body {
   margin-top: 28px;
 }
 
+/* Form content */
+sup.required{
+  color: #FF0000;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {

@@ -21,8 +21,8 @@ DROP TABLE IF EXISTS `ngci`.`users` ;
 
 CREATE TABLE IF NOT EXISTS `ngci`.`users` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
-  `f_name` VARCHAR(100) NULL,
-  `l_name` VARCHAR(100) NULL,
+  `f_name` VARCHAR(100) NOT NULL,
+  `l_name` VARCHAR(100) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
@@ -65,7 +65,7 @@ DROP TABLE IF EXISTS `ngci`.`comments` ;
 CREATE TABLE IF NOT EXISTS `ngci`.`comments` (
   `comment_id` INT NOT NULL AUTO_INCREMENT,
   `comment` TEXT NOT NULL,
-  `commenter_name` VARCHAR(100) NOT NULL COMMENT '	',
+  `commenter_name` VARCHAR(100) NOT NULL COMMENT '  ',
   `commenter_email` VARCHAR(100) NULL,
   `create_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `post_id` INT NULL,

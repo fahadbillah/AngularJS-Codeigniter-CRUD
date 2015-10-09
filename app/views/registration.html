@@ -1,1 +1,36 @@
-<p>This is the registration view.</p>
+<form name="registrationForm" role="form" ng-submit="registrationSubmit(registration)">
+	<legend>Registration</legend>
+
+	<div class="form-group">
+		<label for="">First Name <sup class="required">*</sup></label>
+		<input type="text" class="form-control" name="f_name" ng-model="registration.f_name" placeholder="Input field" required>
+		<span class="label label-danger" ng-if="registrationForm.f_name.$invalid && registrationForm.f_name.$dirty">Required</span>
+	</div>
+	<div class="form-group">
+		<label for="">Last Name <sup class="required">*</sup></label>
+		<input type="text" class="form-control" name="l_name" ng-model="registration.l_name" placeholder="Input field" required>
+		<span class="label label-danger" ng-if="registrationForm.l_name.$invalid && registrationForm.l_name.$dirty">Required</span>
+	</div>
+	<div class="form-group">
+		<label for="">Username <sup class="required">*</sup></label>
+		<input type="text" class="form-control" name="username" ng-model="registration.username" placeholder="Input field" required>
+		<span class="label label-danger" ng-if="registrationForm.username.$invalid && registrationForm.username.$dirty">Required</span>
+	</div>
+	<div class="form-group">
+		<label for="">Email <sup class="required">*</sup></label>
+		<input type="email" class="form-control" name="email" ng-model="registration.email" placeholder="Input field" required>
+		<span class="label label-danger" ng-if="registrationForm.email.$invalid && registrationForm.email.$dirty">Required</span>
+	</div>
+	<div class="form-group">
+		<label for="">Password <sup class="required">*</sup></label>
+		<input type="password" class="form-control" name="password" ng-model="registration.password" placeholder="Input field" required>
+		<span class="label label-danger" ng-if="registrationForm.password.$invalid && registrationForm.password.$dirty">Required</span>
+	</div>
+	<div class="form-group">
+		<label for="">Confirm Password <sup class="required">*</sup></label>
+		<input type="password" class="form-control" name="confirm_password" ng-model="registration.confirm_password" placeholder="Input field" required>
+		<span class="label label-danger" ng-if="registration.password != registration.confirm_password">Mismatch</span>
+	</div>
+
+	<button type="submit" ng-disabled="registrationForm.$invalid || registrationForm.$pristine || inProgress || registration.password != registration.confirm_password" class="btn btn-primary">Submit</button>
+</form>
