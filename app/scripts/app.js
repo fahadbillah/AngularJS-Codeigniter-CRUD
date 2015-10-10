@@ -39,6 +39,10 @@
     templateUrl: 'views/registration.html',
     controller: 'RegistrationCtrl'
   })
+  .when('/profile', {
+    templateUrl: 'views/profile.html',
+    controller: 'ProfileCtrl'
+  })
   .otherwise({
     redirectTo: '/error/404'
   });

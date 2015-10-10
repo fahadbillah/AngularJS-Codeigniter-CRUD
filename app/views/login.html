@@ -1,1 +1,16 @@
-<p>This is the login view.</p>
+<form name='loginForm' ng-submit="loginSubmit(login)" role="form">
+	<legend>Login</legend>
+
+	<div class="form-group">
+		<label for="">Username</label>
+		<input type="text" class="form-control" name="username" ng-model="login.username" placeholder="Input field">
+		<span class="label label-danger" ng-if="loginForm.username.$invalid && loginForm.username.$dirty">Required</span>
+	</div>
+	<div class="form-group">
+		<label for="">Password</label>
+		<input type="password" class="form-control" name="password" ng-model="login.password" placeholder="Input field">
+		<span class="label label-danger" ng-if="loginForm.password.$invalid && loginForm.password.$dirty">Required</span>
+	</div>
+
+	<button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid || loginForm.$pristine || inProgress">Submit</button>
+</form>

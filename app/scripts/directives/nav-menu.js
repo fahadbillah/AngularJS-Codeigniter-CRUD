@@ -11,11 +11,11 @@
  	return {
  		restrict: 'A',
  		link: function postLink(scope, element, attrs) {
- 			$rootScope.$on('$routeChangeSuccess', function(event,current,previous) {
+ 			$rootScope.$on('$routeChangeSuccess', function(event,current) {
  				if ('#'+current.$$route.originalPath === element.children().attr('ng-href')) {
- 					attrs.$addClass('active')
+ 					attrs.$addClass('active');
  				}else{
- 					attrs.$removeClass('active')
+ 					attrs.$removeClass('active');
  				}
  			});
  		}

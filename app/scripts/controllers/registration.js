@@ -8,7 +8,7 @@
  * Controller of the ngciApp
  */
  angular.module('ngciApp')
- .controller('RegistrationCtrl',['$scope', function ($scope) {
+ .controller('RegistrationCtrl',['$scope','post', function ($scope,post) {
  	$scope.awesomeThings = [
  	'HTML5 Boilerplate',
  	'AngularJS',
@@ -16,6 +16,14 @@
  	];
 
  	$scope.registrationSubmit = function(registration) {
- 		console.log(registration);
+ 		$scope.inProgress = true;
+ 		post('auth/registration', registration)
+ 		.then(function(data) {
+ 			$scope.inProgress = false;
+ 			console.log(data); 			
+ 		}, function(data,error) {
+ 			$scope.inProgress = false;
+ 			console.log(data); 			
+ 		});
  	};
  }]);
