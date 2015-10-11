@@ -9,7 +9,7 @@ class Auth extends CI_Controller {
 
 	public function index()
 	{
-		# code...
+		echo $this->input->cookie('csrf_cookie_name');
 	}
 
 	public function login()
@@ -71,9 +71,19 @@ class Auth extends CI_Controller {
 		echo json_encode($returned_data);
 	}
 
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		$returned_data = array(
+			'success' => true,
+			'message' => 'Successfully logout',
+			);
+		jsonify($returned_data);
+	}
+
 	public function test($value='')
 	{
-		vd($this->input->cookie());
+		echo "wow";
 	}
 
 }

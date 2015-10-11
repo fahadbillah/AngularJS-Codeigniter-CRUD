@@ -8,12 +8,17 @@
  * Controller of the ngciApp
  */
  angular.module('ngciApp')
- .controller('LoginCtrl',['$rootScope','$scope','post','authService','$location', function ($rootScope,$scope,post,authService,$location) {
+ .controller('LoginCtrl',['$rootScope','$scope','post','authService','$location','get', function ($rootScope,$scope,post,authService,$location,get) {
  	$scope.awesomeThings = [
  	'HTML5 Boilerplate',
  	'AngularJS',
  	'Karma'
  	];
+
+ 	get('auth/')
+ 	.then(function(data) {
+ 		console.log(data);
+ 	})
 
  	$scope.loginSubmit = function(login) {
  		$scope.inProgress = true;

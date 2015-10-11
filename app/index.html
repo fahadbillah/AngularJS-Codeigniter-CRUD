@@ -37,17 +37,17 @@
             </div>
 
             <div class="collapse navbar-collapse" id="js-navbar-collapse">
-              <ul class="nav navbar-nav">
+              <ul restrict="public" class="nav navbar-nav">
                 <li nav-menu><a ng-href="#/">Home</a></li>
                 <li nav-menu><a ng-href="#/about">About</a></li>
               </ul>
 
-              <ul ng-if="!authService.isAuthenticated()" class="nav navbar-nav pull-right">
+              <ul restrict="public" class="nav navbar-nav pull-right">
                 <li nav-menu><a ng-href="#/login">Login</a></li>
                 <li nav-menu><a ng-href="#/registration">Sign Up</a></li>
               </ul>
 
-              <ul ng-if="authService.isAuthenticated()" class="nav navbar-nav pull-right">
+              <ul restrict="auth" class="nav navbar-nav pull-right">
                 <li nav-menu><a ng-href="#/profile">Profile</a></li>
                 <li nav-menu><a ng-href="#/logout">Logout</a></li>
               </ul>
@@ -104,6 +104,7 @@
      <script src="scripts/services/session.js"></script>
      <script src="scripts/services/authservice.js"></script>
      <script src="scripts/controllers/profile.js"></script>
+     <script src="scripts/controllers/logout.js"></script>
      <!-- endbuild -->
    </body>
    </html>

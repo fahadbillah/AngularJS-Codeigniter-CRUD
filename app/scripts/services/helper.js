@@ -26,4 +26,30 @@
  		});
  		return deferred.promise;
  	};
+ }])
+
+
+/**
+ * @ngdoc service
+ * @name ngciApp.post
+ * @description
+ * # post
+ * Service in the ngciApp.
+ */ 
+ .service('get',['$http', '$q', function ($http, $q) {
+ 	return function(url) {
+ 		var deferred = $q.defer();
+ 		$http({
+ 			url: 'api/index.php/'+url,
+ 			method: 'get',
+ 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+ 		})
+ 		.success(function(data){
+ 			deferred.resolve(data);               
+ 		})
+ 		.error(function(data, status, headers, config) {
+ 			deferred.reject("Error: request returned status " + status); 
+ 		});
+ 		return deferred.promise;
+ 	};
  }]);

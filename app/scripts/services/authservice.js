@@ -13,11 +13,16 @@
 
  	authService.setLoginInfo = function(data) {
  		session.create(data);
- 		$window.sessionStorage["user"] = JSON.stringify(data);
+ 		$window.sessionStorage['user'] = JSON.stringify(data);
+ 	}
+
+ 	authService.logout = function() {
+ 		session.destroy();
+ 		$window.sessionStorage.removeItem('user');
  	}
 
  	authService.isAuthenticated = function () {
- 		return !!session.user.logged_in;
+ 		return !!session.user;
  	};
 
  	authService.isAuthorized = function (authorizedRoles) {
@@ -28,8 +33,8 @@
  	};
 
  	function init () {
- 		if ($window.sessionStorage["user"]) {
- 			session.create(JSON.parse($window.sessionStorage["user"]));
+ 		if ($window.sessionStorage['user']) {
+ 			session.create(JSON.parse($window.sessionStorage['user']));
  		}
  	}
  	init();

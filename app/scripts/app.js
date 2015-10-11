@@ -41,7 +41,29 @@
   })
   .when('/profile', {
     templateUrl: 'views/profile.html',
-    controller: 'ProfileCtrl'
+    controller: 'ProfileCtrl',
+    resolve: {
+      // I will cause a 1 second delay
+      delay: function($q, $timeout, authService) {
+        var delay = $q.defer();
+        console.log(authService.isAuthenticated());
+        if(!authService.isAuthenticated()){
+          console.log('not authorized');
+        }else{
+          console.log('ok');
+        }
+        $timeout(delay.resolve, 1000);
+        return delay.promise;
+      }
+    }
+  })
+  .when('/logout', {
+    templateUrl: 'views/logout.html',
+    controller: 'LogoutCtrl'
+  })
+  .when('/logout/:status', {
+    templateUrl: 'views/logout.html',
+    controller: 'LogoutCtrl'
   })
   .otherwise({
     redirectTo: '/error/404'
