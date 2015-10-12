@@ -17,55 +17,92 @@
   'ngSanitize',
   'ngTouch'
   ])
- .config(function ($routeProvider) {
-  $routeProvider
-  .when('/', {
-    templateUrl: 'views/main.html',
-    controller: 'MainCtrl'
-  })
-  .when('/about', {
-    templateUrl: 'views/about.html',
-    controller: 'AboutCtrl'
-  })
-  .when('/login', {
-    templateUrl: 'views/login.html',
-    controller: 'LoginCtrl'
-  })
-  .when('/error/:errorId', {
-    templateUrl: 'views/error.html',
-    controller: 'ErrorCtrl'
-  })
-  .when('/registration', {
-    templateUrl: 'views/registration.html',
-    controller: 'RegistrationCtrl'
-  })
-  .when('/profile', {
-    templateUrl: 'views/profile.html',
-    controller: 'ProfileCtrl',
-    resolve: {
-      // I will cause a 1 second delay
-      delay: function($q, $timeout, authService) {
-        var delay = $q.defer();
-        console.log(authService.isAuthenticated());
-        if(!authService.isAuthenticated()){
-          console.log('not authorized');
-        }else{
-          console.log('ok');
-        }
-        $timeout(delay.resolve, 1000);
-        return delay.promise;
+ .config(['$routeProvider', function ($routeProvider) {
+   $routeProvider
+   .when('/', {
+     templateUrl: 'views/main.html',
+     controller: 'MainCtrl'
+   })
+   .when('/about', {
+     templateUrl: 'views/about.html',
+     controller: 'AboutCtrl'
+   })
+   .when('/login', {
+     templateUrl: 'views/login.html',
+     controller: 'LoginCtrl',
+     resolve: {
+      load: function($q, $rootScope, $timeout, authService) {
+       var load = $q.defer();
+       if(authService.isAuthenticated()){
+        load.reject('not_accessible_by_already_logged_in');
+      }else{
+        load.resolve();
       }
+      return load.promise;
     }
-  })
-  .when('/logout', {
-    templateUrl: 'views/logout.html',
-    controller: 'LogoutCtrl'
-  })
-  .when('/logout/:status', {
-    templateUrl: 'views/logout.html',
-    controller: 'LogoutCtrl'
-  })
-  .otherwise({
-    redirectTo: '/error/404'
-  });
-});
+  }
+})
+   .when('/login/:message', {
+     templateUrl: 'views/login.html',
+     controller: 'LoginCtrl',
+     resolve: {
+      load: function($q, $rootScope, $timeout, authService) {
+       var load = $q.defer();
+       if(authService.isAuthenticated()){
+        load.reject('not_accessible_by_already_logged_in');
+      }else{
+        load.resolve();
+      }
+      return load.promise;
+    }
+  }
+})
+   .when('/error/:errorId', {
+     templateUrl: 'views/error.html',
+     controller: 'ErrorCtrl'
+   })
+   .when('/registration', {
+     templateUrl: 'views/registration.html',
+     controller: 'RegistrationCtrl',
+     resolve: {
+      load: function($q, $rootScope, $timeout, authService) {
+       var load = $q.defer();
+       if(authService.isAuthenticated()){
+        load.reject('not_accessible_by_already_logged_in');
+      }else{
+        load.resolve();
+      }
+      return load.promise;
+    }
+  }
+})
+   .when('/profile', {
+     templateUrl: 'views/profile.html',
+     controller: 'ProfileCtrl',
+     resolve: {
+      // access control
+      load: function($q, $rootScope, $timeout, authService) {
+       var load = $q.defer();
+       console.log($rootScope);
+       if(!authService.isAuthenticated()){
+        load.reject('not_authenticated');
+      }else{
+        load.resolve();
+      }
+      // $timeout(load.resolve, 2000);
+      return load.promise;
+    }
+  }
+})
+   .when('/logout', {
+     templateUrl: 'views/logout.html',
+     controller: 'LogoutCtrl'
+   })
+   .when('/logout/:status', {
+     templateUrl: 'views/logout.html',
+     controller: 'LogoutCtrl'
+   })
+   .otherwise({
+     redirectTo: '/error/404'
+   });
+ }]);

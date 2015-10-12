@@ -14,12 +14,7 @@
  	'AngularJS',
  	'Karma'
  	];
-
- 	get('auth/')
- 	.then(function(data) {
- 		console.log(data);
- 	})
-
+ 	
  	$scope.registrationSubmit = function(registration) {
  		$scope.inProgress = true;
  		post('auth/registration', registration)

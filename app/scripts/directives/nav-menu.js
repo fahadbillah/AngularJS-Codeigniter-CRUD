@@ -33,7 +33,7 @@
  		link: function postLink(scope, element, attrs) {
  			$rootScope.$on('$routeChangeSuccess', function(event,current) {
  				switch(attrs.restrict){
- 					case 'public':
+ 					case 'only_public':
  					if (authService.isAuthenticated()) {
  						element.hide();
  					}else{

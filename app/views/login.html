@@ -1,3 +1,8 @@
+<div ng-if="!!message" class="col-md-8 col-md-offset-2">
+	<div class="alert alert-warning">
+		<i class="fa fa-warning"></i> <strong>{{message}}</strong>
+	</div>
+</div>
 <form name='loginForm' ng-submit="loginSubmit(login)" role="form">
 	<legend>Login</legend>
 

@@ -9,18 +9,24 @@
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild -->
 </head>
-<body ng-app="ngciApp">
+<body ng-app="ngciApp" ng-controller="DocumentCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
 
       <!-- Add your site or application content here -->
+      <div ng-if="pageLoader.show" class="page-loader-box">
+        <div class="page-loader">
+          <i class="fa fa-pulse fa-spinner"></i> {{pageLoader.message}}
+        </div>
+      </div>
       <div class="header">
         <div class="navbar navbar-default" role="navigation">
           <div class="container">
@@ -42,7 +48,7 @@
                 <li nav-menu><a ng-href="#/about">About</a></li>
               </ul>
 
-              <ul restrict="public" class="nav navbar-nav pull-right">
+              <ul restrict="only_public" class="nav navbar-nav pull-right">
                 <li nav-menu><a ng-href="#/login">Login</a></li>
                 <li nav-menu><a ng-href="#/registration">Sign Up</a></li>
               </ul>
@@ -105,6 +111,7 @@
      <script src="scripts/services/authservice.js"></script>
      <script src="scripts/controllers/profile.js"></script>
      <script src="scripts/controllers/logout.js"></script>
+     <script src="scripts/controllers/document.js"></script>
      <!-- endbuild -->
    </body>
    </html>
