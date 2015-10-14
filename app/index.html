@@ -29,59 +29,67 @@
       </div>
       <div class="header">
         <div class="navbar navbar-default" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
+          <div class="navbar-header">
 
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
 
-              <a class="navbar-brand" ng-href="#/">ngci</a>
-            </div>
+            <a class="navbar-brand" ng-href="#/">ngci</a>
+          </div>
 
-            <div class="collapse navbar-collapse" id="js-navbar-collapse">
-              <ul restrict="public" class="nav navbar-nav">
-                <li nav-menu><a ng-href="#/">Home</a></li>
-                <li nav-menu><a ng-href="#/about">About</a></li>
-              </ul>
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+            <ul restrict="public" class="nav navbar-nav">
+              <li nav-menu><a ng-href="#/">Home</a></li>
+              <li nav-menu class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#/categories/sports">Sports</a></li>
+                  <li><a href="#/categories/fashion">Fashion</a></li>
+                  <li><a href="#/categories/food">Food</a></li>
+                </ul>
+              </li>
+            </ul>
 
-              <ul restrict="only_public" class="nav navbar-nav pull-right">
-                <li nav-menu><a ng-href="#/login">Login</a></li>
-                <li nav-menu><a ng-href="#/registration">Sign Up</a></li>
-              </ul>
+            <ul restrict="only_public" class="nav navbar-nav pull-right">
+              <li nav-menu><a ng-href="#/login">Login</a></li>
+              <li nav-menu><a ng-href="#/registration">Sign Up</a></li>
+            </ul>
 
-              <ul restrict="auth" class="nav navbar-nav pull-right">
-                <li nav-menu><a ng-href="#/profile">Profile</a></li>
-                <li nav-menu><a ng-href="#/logout">Logout</a></li>
-              </ul>
-            </div>
+            <ul restrict="auth" class="nav navbar-nav pull-right">
+              <li nav-menu><a ng-href="#/createblog"><i class="fa fa-plus"></i></a></li>
+              <li nav-menu><a ng-href="#/profile">Profile</a></li>
+              <li nav-menu><a ng-href="#/logout">Logout</a></li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <div class="container">
+      <div class="col-md-8 col-md-offset-2 clearfix">
         <div ng-view=""></div>
       </div>
 
-      <div class="footer">
-        <div class="container">
-          <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+      <div class="col-md-12">
+        <div class="footer">
+          <div class="">
+            <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+          </div>
         </div>
       </div>
 
 
       <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
       <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-         (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-         r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+     }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
+     ga('create', 'UA-XXXXX-X');
+     ga('send', 'pageview');
      </script>
 
      <!-- build:js(.) scripts/vendor.js -->
@@ -101,7 +109,7 @@
      <!-- build:js({.tmp,app}) scripts/scripts.js -->
      <script src="scripts/app.js"></script>
      <script src="scripts/controllers/main.js"></script>
-     <script src="scripts/controllers/about.js"></script>
+     <script src="scripts/controllers/categories.js"></script>
      <script src="scripts/controllers/login.js"></script>
      <script src="scripts/controllers/error.js"></script>
      <script src="scripts/controllers/registration.js"></script>
@@ -112,6 +120,8 @@
      <script src="scripts/controllers/profile.js"></script>
      <script src="scripts/controllers/logout.js"></script>
      <script src="scripts/controllers/document.js"></script>
+     <script src="scripts/controllers/createblog.js"></script>
+     <script src="scripts/services/category.js"></script>
      <!-- endbuild -->
    </body>
    </html>

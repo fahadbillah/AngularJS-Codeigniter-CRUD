@@ -10,22 +10,22 @@
  */
  angular
  .module('ngciApp', [
-  'ngAnimate',
-  'ngCookies',
-  'ngResource',
-  'ngRoute',
-  'ngSanitize',
-  'ngTouch'
-  ])
+         'ngAnimate',
+         'ngCookies',
+         'ngResource',
+         'ngRoute',
+         'ngSanitize',
+         'ngTouch'
+         ])
  .config(['$routeProvider', function ($routeProvider) {
    $routeProvider
    .when('/', {
      templateUrl: 'views/main.html',
      controller: 'MainCtrl'
    })
-   .when('/about', {
+   .when('/categories/:categoryName', {
      templateUrl: 'views/about.html',
-     controller: 'AboutCtrl'
+     controller: 'CategoriesCtrl'
    })
    .when('/login', {
      templateUrl: 'views/login.html',
@@ -102,6 +102,24 @@
      templateUrl: 'views/logout.html',
      controller: 'LogoutCtrl'
    })
+   .when('/createblog', {
+     templateUrl: 'views/createblog.html',
+     controller: 'CreateblogCtrl',
+     resolve: {
+      // access control
+      load: function($q, $rootScope, $timeout, authService) {
+       var load = $q.defer();
+       console.log($rootScope);
+       if(!authService.isAuthenticated()){
+        load.reject('not_authenticated');
+      }else{
+        load.resolve();
+      }
+      // $timeout(load.resolve, 2000);
+      return load.promise;
+    }
+  }
+})
    .otherwise({
      redirectTo: '/error/404'
    });
