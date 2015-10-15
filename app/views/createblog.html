@@ -1,3 +1,8 @@
+<style type="text/css">
+.tag{
+	margin-right: 3px;
+}
+</style>
 <form role="form">
 	<legend>Create Post</legend>
 
@@ -12,18 +17,18 @@
 	</div>
 
 	<div class="form-group">
-		<label for="">Title</label>
-		<select class="form-control" name="category" ng-model="blog.category">
-			<option value="">Select Category</option>
-			<option ng-repeat="(key, value) in categories" value="{{value.category_id}}">{{value.category_name}}</option> 
+		<label for="">Category</label>
+		<select class="form-control" name="category" ng-model="blog.category" ng-options="category.category_name group by category.parent_category for category in categories track by category.category_id">
+			<option value="">Select a category</option>
 		</select>
-	
-</div>
 
-<div class="form-group">
-	<label for="">Title</label>
-	<input type="text" class="form-control" placeholder="Input field" name="title" ng-model="blog.title">
-</div>
+	</div>
 
-<button type="submit" class="btn btn-primary">Submit</button>
+	<div class="form-group">
+		<label for="">Tags</label>
+		<input type="text" class="form-control" placeholder="Input field" name="tagName" ng-model="tags" ng-keyup="createTag(tags)">
+		<span ng-repeat="(key, value) in blog.tags" class="label label-info tag">{{value}}</span>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Submit</button>
 </form>

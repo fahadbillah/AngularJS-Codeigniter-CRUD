@@ -15,6 +15,11 @@
  	'Karma'
  	];
 
+ 	$scope.blog = {
+ 		tags : [],
+ 		category: null
+ 	};
+
  	category.getAllCategory()
  	.then(function(data) {
  		$scope.categories = data;
@@ -22,5 +27,14 @@
  	}, function(data,error) {
  		console.log(data);
  	});
+
+ 	$scope.createTag = function (tags) {
+ 		$scope.blog.tags = [];
+ 		var tag = tags.split(',');
+ 		console.log(tags)
+ 		tag.map(function (e,i) {
+ 			$scope.blog.tags.push(e.trim());
+ 		})
+ 	}
 
  }]);

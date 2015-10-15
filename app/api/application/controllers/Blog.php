@@ -16,7 +16,15 @@ class Blog extends CI_Controller {
 
 	public function get_all_categories()
 	{
-		jsonify($this->blog_model->get_all_categories());
+		$data = $this->blog_model->get_all_categories();
+		// array_unshift($data, array(
+		//               'category_id' => null,
+		//               'category_name' => 'Select a category',
+		//               'parent_category' => null,
+		//               'create_date' => null,
+		//               'update_date' => null,
+		//               ));
+		jsonify($data);
 	}
 
 }
